@@ -3,6 +3,11 @@
 // Add your OpenWeather API key on the next line to enable live weather.
 // Get one at https://openweathermap.org/api
 const OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE";
+// Web3Forms access key for the enquiry form. Get one at
+// https://web3forms.com/#start (enter stevenyong929@yahoo.com — they email
+// the key instantly, no activation needed). Until set, the form saves
+// locally only and shows a setup notice.
+const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_KEY_HERE";
 // ============================================================
 
 (function () {
@@ -13,6 +18,15 @@ const OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE";
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
   const cities = window.CITIES || [];
+
+  // Japanese-language accent labels per destination (display only).
+  const JP_NAMES = {
+    tokyo: "東京", seoul: "ソウル", bali: "バリ", singapore: "新嘉坡",
+    bangkok: "バンコク", hongkong: "香港", kualalumpur: "吉隆坡",
+    maldives: "モルディブ", phuket: "プーケット", sydney: "雪梨",
+    taipei: "台北", hanoi: "河内"
+  };
+  const jp = (id) => JP_NAMES[id] || "";
 
   // ----- Footer year -----
   $("#year").textContent = new Date().getFullYear();
@@ -28,7 +42,7 @@ const OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE";
           <img src="${c.heroImage}" alt="${c.name}, ${c.country}" loading="lazy" />
         </div>
         <div class="city-body">
-          <h3 class="city-name">${c.name}</h3>
+          <h3 class="city-name">${c.name}${jp(c.id) ? `<span class="city-jp" aria-hidden="true">${jp(c.id)}</span>` : ""}</h3>
           <p class="city-country">${c.country}</p>
           <p class="city-blurb">${c.blurb}</p>
           <dl class="city-meta">
@@ -44,12 +58,13 @@ const OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE";
 
   function renderFeaturedGuides() {
     const strip = $("#guides-strip");
-    const featuredIds = ["seoul", "tokyo", "bali"];
+    const featuredIds = ["tokyo", "seoul", "bali"];
     const featured = featuredIds.map(id => cities.find(c => c.id === id)).filter(Boolean);
     strip.innerHTML = featured.map(c => `
       <article class="guide-feature" data-open-guide="${c.id}" tabindex="0" role="button" aria-label="Open ${c.name} guide">
         <img src="${c.heroImage}" alt="${c.name}" loading="lazy" />
         <div class="guide-feature-body">
+          ${jp(c.id) ? `<span class="guide-jp" aria-hidden="true">${jp(c.id)}</span>` : ""}
           <h3>${c.name}</h3>
           <p>${c.blurb}</p>
         </div>
@@ -297,11 +312,16 @@ const OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE";
   }
 
   // ===========================================================
-  // Enquiry form
+  // Enquiry form — posts to Web3Forms which emails the inbox
+  // associated with WEB3FORMS_ACCESS_KEY (set up at the top of this file).
   // ===========================================================
+  const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+
   function initEnquiry() {
     const form = $("#enquiry-form");
     const success = $("#enquiry-success");
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const submitLabel = submitBtn ? submitBtn.textContent : "";
 
     function setError(field, msg) {
       const err = form.querySelector(`[data-err="${field}"]`);
@@ -310,7 +330,14 @@ const OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE";
       if (input) input.classList.toggle("invalid", !!msg);
     }
 
-    form.addEventListener("submit", (e) => {
+    function showStatus(msg, kind) {
+      success.textContent = msg;
+      success.classList.remove("error");
+      if (kind === "error") success.classList.add("error");
+      success.classList.add("show");
+    }
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const fd = new FormData(form);
       const data = Object.fromEntries(fd.entries());
@@ -336,10 +363,43 @@ const OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE";
       all.push(data);
       localStorage.setItem("enquiries", JSON.stringify(all));
 
-      success.textContent = `Thanks, ${data.name.split(" ")[0]}! Your enquiry is in — we'll be in touch within 24 hours.`;
-      success.classList.add("show");
-      form.reset();
-      setTimeout(() => success.classList.remove("show"), 5000);
+      if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_KEY_HERE") {
+        showStatus(`Thanks, ${data.name.split(" ")[0]}! Your enquiry was saved locally. Email delivery is not yet configured — add a Web3Forms access key in app.js (line 10) to enable it.`, "error");
+        form.reset();
+        setTimeout(() => success.classList.remove("show"), 8000);
+        return;
+      }
+
+      const payload = {
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `Travel Explorer enquiry — ${data.name} → ${data.destination}`,
+        from_name: "Travel Explorer Enquiry",
+        replyto: data.email,
+        botcheck: "",
+        ...data
+      };
+
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending…"; }
+      showStatus("Sending your enquiry…");
+
+      try {
+        const res = await fetch(WEB3FORMS_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok || body.success === false) {
+          throw new Error(body.message || `Request failed (${res.status}).`);
+        }
+        showStatus(`Thanks, ${data.name.split(" ")[0]}! Your enquiry is in — we'll be in touch within 24 hours.`);
+        form.reset();
+        setTimeout(() => success.classList.remove("show"), 6000);
+      } catch (err) {
+        showStatus(`Couldn't send right now: ${err.message} Your enquiry was saved locally — please try again later.`, "error");
+      } finally {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = submitLabel; }
+      }
     });
   }
 

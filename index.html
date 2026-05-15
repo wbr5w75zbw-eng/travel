@@ -3,27 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Travel Explorer — We went, so you know where to go.</title>
-  <meta name="description" content="Curated city guides, travel tools, weather, and trip planning for Asia-Pacific travellers." />
+  <title>旅 Tabi · Travel Explorer — We went, so you know where to go.</title>
+  <meta name="description" content="Curated city guides, travel tools, weather, and trip planning for Asia-Pacific travellers — wabi-sabi edition." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="washi-grain" aria-hidden="true"></div>
+  <div class="washi-edge" aria-hidden="true"></div>
+
   <header class="site-header">
     <div class="container nav-row">
-      <a href="#home" class="brand">
-        <span class="brand-mark">◆</span>
-        <span class="brand-name">Travel Explorer</span>
+      <a href="#home" class="brand" aria-label="Tabi — Travel Explorer home">
+        <span class="brand-mark" aria-hidden="true">旅</span>
+        <span class="brand-name">
+          <span class="brand-latin">Tabi</span>
+          <span class="brand-sub">Travel Explorer · 旅人の手帖</span>
+        </span>
       </a>
       <nav class="main-nav" aria-label="Primary">
-        <a href="#home">Home</a>
-        <a href="#guides">Guides</a>
-        <a href="#cities">Cities</a>
-        <a href="#tools">Travel Tools</a>
-        <a href="#weather">Weather</a>
-        <a href="#enquiry">Enquiry</a>
+        <a href="#home"><span class="nav-num" aria-hidden="true">一</span>Home</a>
+        <a href="#guides"><span class="nav-num" aria-hidden="true">二</span>Guides</a>
+        <a href="#cities"><span class="nav-num" aria-hidden="true">三</span>Cities</a>
+        <a href="#tools"><span class="nav-num" aria-hidden="true">四</span>Tools</a>
+        <a href="#weather"><span class="nav-num" aria-hidden="true">五</span>Weather</a>
+        <a href="#enquiry"><span class="nav-num" aria-hidden="true">六</span>Enquiry</a>
       </nav>
     </div>
   </header>
@@ -32,21 +38,41 @@
     <!-- HOME / HERO -->
     <section id="home" class="hero">
       <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-tint" aria-hidden="true"></div>
+      <div class="seigaiha-band" aria-hidden="true"></div>
+
+      <span class="hero-vertical" aria-hidden="true">第一号・亞細亞太平洋紀行</span>
+
       <div class="container hero-inner">
-        <p class="eyebrow">Issue 01 · Asia-Pacific</p>
-        <h1 class="hero-title">We went, so you know<br/>where to go.</h1>
+        <p class="eyebrow eyebrow-on-dark">
+          <span class="eyebrow-jp">第一号</span> · Issue 01 · Asia-Pacific
+        </p>
+        <h1 class="hero-title">
+          <span class="hero-jp" aria-hidden="true">行ってきた、</span>
+          We went,<br/>
+          so you know<br/>
+          <em>where to go.</em>
+        </h1>
         <p class="hero-lede">
           Curated travel guides with real prices, realistic itineraries, airport tips,
-          safety notes, weather insights, and local recommendations.
+          safety notes, weather insights, and local recommendations — written by
+          travellers who actually went.
         </p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="#guides">Read Latest Guide</a>
           <a class="btn btn-ghost" href="#enquiry">Send Enquiry</a>
         </div>
+
+        <div class="hanko" aria-hidden="true">
+          <span>旅</span><span>人</span><span>手</span><span>帖</span>
+        </div>
+
         <article class="featured-card" aria-label="Featured guide">
-          <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80" alt="Tokyo skyline at dusk" />
+          <div class="featured-image">
+            <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=900&q=80" alt="Tokyo skyline at dusk" />
+          </div>
           <div class="featured-body">
-            <span class="tag">Featured Guide</span>
+            <span class="tag">特集 · Featured Guide</span>
             <h3>Tokyo in 72 hours</h3>
             <p>Omakase mornings, teamLab afternoons, Shinjuku nights — our editor's full breakdown.</p>
             <button class="link-cta" data-open-guide="tokyo">Read the guide →</button>
@@ -59,7 +85,8 @@
     <section id="guides" class="section">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">Editor's Picks</p>
+          <div class="section-num"><span class="num-kanji" aria-hidden="true">二</span><span class="num-rule"></span><span class="num-roman">02 · Ni</span></div>
+          <p class="eyebrow"><span class="eyebrow-jp">編集者の選</span> · Editor's Picks</p>
           <h2>Guides we keep going back to.</h2>
         </header>
         <div class="guides-strip" id="guides-strip"></div>
@@ -70,9 +97,10 @@
     <section id="cities" class="section section-alt">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">12 Destinations</p>
+          <div class="section-num"><span class="num-kanji" aria-hidden="true">三</span><span class="num-rule"></span><span class="num-roman">03 · San</span></div>
+          <p class="eyebrow"><span class="eyebrow-jp">十二の街</span> · 12 Destinations</p>
           <h2>Every city, broken down.</h2>
-          <p class="section-sub">Flight time, daily budget, best season, and a 3-day itinerary for each.</p>
+          <p class="section-sub">Flight time, daily budget, best season, and a 3-day itinerary for each. Cards open the full editorial guide.</p>
         </header>
         <div class="cities-grid" id="cities-grid"></div>
       </div>
@@ -82,14 +110,17 @@
     <section id="tools" class="section">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">Travel Tools</p>
+          <div class="section-num"><span class="num-kanji" aria-hidden="true">四</span><span class="num-rule"></span><span class="num-roman">04 · Shi</span></div>
+          <p class="eyebrow"><span class="eyebrow-jp">旅の道具</span> · Travel Tools</p>
           <h2>Plan smarter, pack lighter.</h2>
         </header>
 
         <div class="tools-grid">
           <!-- Budget Calculator -->
           <article class="tool-card">
+            <span class="tool-corner" aria-hidden="true">壱</span>
             <h3>Trip Budget Calculator</h3>
+            <p class="muted">予算 · estimate your total in SGD.</p>
             <form id="budget-form" class="tool-form">
               <label>
                 Destination
@@ -114,14 +145,17 @@
 
           <!-- Packing Checklist -->
           <article class="tool-card">
+            <span class="tool-corner" aria-hidden="true">弐</span>
             <h3>Packing Checklist</h3>
-            <p class="muted">Auto-saved as you tick.</p>
+            <p class="muted">荷造り · auto-saved as you tick.</p>
             <div class="checklist" id="packing-list"></div>
           </article>
 
           <!-- Itinerary Planner -->
           <article class="tool-card">
+            <span class="tool-corner" aria-hidden="true">参</span>
             <h3>Itinerary Planner</h3>
+            <p class="muted">旅程 · build your day by day.</p>
             <form id="itinerary-form" class="tool-form">
               <label>
                 Day
@@ -133,7 +167,7 @@
               </label>
               <label>
                 Activity
-                <input type="text" name="activity" placeholder="e.g. Wat Pho" required />
+                <input type="text" name="activity" placeholder="e.g. Senso-ji at dawn" required />
               </label>
               <label>
                 Notes
@@ -151,11 +185,12 @@
     <section id="weather" class="section section-alt">
       <div class="container">
         <header class="section-head">
-          <p class="eyebrow">Weather</p>
+          <div class="section-num"><span class="num-kanji" aria-hidden="true">五</span><span class="num-rule"></span><span class="num-roman">05 · Go</span></div>
+          <p class="eyebrow"><span class="eyebrow-jp">空模様</span> · Weather</p>
           <h2>Check before you fly.</h2>
         </header>
         <form id="weather-form" class="weather-form">
-          <input type="text" id="weather-city" placeholder="Enter a city (e.g. Tokyo)" required />
+          <input type="text" id="weather-city" placeholder="Enter a city — e.g. Tokyo, 東京" required />
           <button type="submit" class="btn btn-primary">Check Weather</button>
         </form>
         <div class="weather-result" id="weather-result" aria-live="polite"></div>
@@ -166,9 +201,10 @@
     <section id="enquiry" class="section">
       <div class="container narrow">
         <header class="section-head">
-          <p class="eyebrow">Plan a Trip</p>
+          <div class="section-num"><span class="num-kanji" aria-hidden="true">六</span><span class="num-rule"></span><span class="num-roman">06 · Roku</span></div>
+          <p class="eyebrow"><span class="eyebrow-jp">お問合せ</span> · Plan a Trip</p>
           <h2>Send us an enquiry.</h2>
-          <p class="section-sub">Tell us where you want to go — we'll come back with a curated plan.</p>
+          <p class="section-sub">Tell us where you want to go — we'll come back with a curated plan within 24 hours.</p>
         </header>
 
         <form id="enquiry-form" class="enquiry-form" novalidate>
@@ -214,8 +250,10 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container">
-      <p>© <span id="year"></span> Travel Explorer · We went, so you know where to go.</p>
+    <div class="container footer-inner">
+      <span class="footer-mark" aria-hidden="true">旅</span>
+      <p>© <span id="year"></span> Tabi · Travel Explorer — 行ってきた、だから知っている。<br/>
+        <span class="footer-en">We went, so you know where to go.</span></p>
     </div>
   </footer>
 

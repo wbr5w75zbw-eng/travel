@@ -37,6 +37,10 @@ All user data lives in `localStorage` under these keys (no backend exists):
 
 `OPENWEATHER_API_KEY` is declared at the top of `app.js` (line 5). When it's still `"YOUR_API_KEY_HERE"`, the widget renders mock data and shows a setup banner. When set, it hits `api.openweathermap.org/data/2.5/weather`.
 
+### Enquiry form delivery
+
+`WEB3FORMS_ACCESS_KEY` (top of `app.js`, ~line 10) drives the enquiry form. When unset (`"YOUR_WEB3FORMS_KEY_HERE"`), submissions only save to `localStorage` and show a setup notice. When set, the form POSTs JSON to `https://api.web3forms.com/submit`; Web3Forms relays the email to the inbox tied to that key. An earlier FormSubmit integration was abandoned after their service returned Cloudflare 521s on 2026-05-15.
+
 ### Spec gaps (intentional)
 
 The original spec (`prompt_travel.md`) was truncated mid-file. **Currency Converter** and **Safety** sections referenced in the spec's objective/nav are not implemented and were dropped by user decision. Don't add them back without confirmation.
