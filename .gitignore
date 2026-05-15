@@ -1,0 +1,18 @@
+# Local Claude Code config (agents, commands, hooks, skills)
+.claude/
+
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
