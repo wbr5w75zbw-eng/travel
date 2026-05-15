@@ -33,13 +33,12 @@ All user data lives in `localStorage` under these keys (no backend exists):
 - `packing` — object mapping `"<Category>::<index>"` → boolean tick state
 - `itinerary` — array of `{ day, time, activity, notes }` entries
 
-### Weather widget
+### API keys
 
-`OPENWEATHER_API_KEY` is declared at the top of `app.js` (line 5). When it's still `"YOUR_API_KEY_HERE"`, the widget renders mock data and shows a setup banner. When set, it hits `api.openweathermap.org/data/2.5/weather`.
+Real keys live in **`config.local.js`** (gitignored), which sets `window.CONFIG = { OPENWEATHER_API_KEY, WEB3FORMS_ACCESS_KEY }`. It's loaded in `index.html` before `app.js` with `onerror="this.remove()"` so a missing file is silent. `app.js` reads `window.CONFIG?.*` with placeholder fallbacks (`"YOUR_API_KEY_HERE"` / `"YOUR_WEB3FORMS_KEY_HERE"`). Never paste real keys into `app.js` — they'll get committed.
 
-### Enquiry form delivery
-
-`WEB3FORMS_ACCESS_KEY` (top of `app.js`, ~line 10) drives the enquiry form. When unset (`"YOUR_WEB3FORMS_KEY_HERE"`), submissions only save to `localStorage` and show a setup notice. When set, the form POSTs JSON to `https://api.web3forms.com/submit`; Web3Forms relays the email to the inbox tied to that key. An earlier FormSubmit integration was abandoned after their service returned Cloudflare 521s on 2026-05-15.
+- **Weather widget** (`OPENWEATHER_API_KEY`): with placeholder, renders mock data and shows a setup banner. With a real key, hits `api.openweathermap.org/data/2.5/weather`.
+- **Enquiry form** (`WEB3FORMS_ACCESS_KEY`): with placeholder, submissions only save to `localStorage` and show a setup notice. With a real key, the form POSTs JSON to `https://api.web3forms.com/submit`; Web3Forms relays the email to the inbox tied to that key. An earlier FormSubmit integration was abandoned after their service returned Cloudflare 521s on 2026-05-15.
 
 ### Spec gaps (intentional)
 

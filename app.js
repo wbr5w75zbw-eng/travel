@@ -1,13 +1,10 @@
 // ============================================================
 // Travel Explorer — interactivity
-// Add your OpenWeather API key on the next line to enable live weather.
-// Get one at https://openweathermap.org/api
-const OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE";
-// Web3Forms access key for the enquiry form. Get one at
-// https://web3forms.com/#start (enter stevenyong929@yahoo.com — they email
-// the key instantly, no activation needed). Until set, the form saves
-// locally only and shows a setup notice.
-const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_KEY_HERE";
+// API keys come from window.CONFIG (set in gitignored config.local.js).
+// Fallback placeholders trigger the weather mock + enquiry-form setup
+// banner when no local config is present.
+const OPENWEATHER_API_KEY = (window.CONFIG && window.CONFIG.OPENWEATHER_API_KEY) || "YOUR_API_KEY_HERE";
+const WEB3FORMS_ACCESS_KEY = (window.CONFIG && window.CONFIG.WEB3FORMS_ACCESS_KEY) || "YOUR_WEB3FORMS_KEY_HERE";
 // ============================================================
 
 (function () {
