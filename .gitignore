@@ -1,5 +1,6 @@
-# Local Claude Code config (agents, commands, hooks, skills)
+# Local Claude Code config (agents, commands, hooks, skills, MCP servers)
 .claude/
+.mcp.json
 
 # macOS
 .DS_Store
