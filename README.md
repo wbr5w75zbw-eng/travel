@@ -2,6 +2,8 @@
 
 A static travel guide website built with vanilla HTML, CSS, and JavaScript.
 
+![Travel Explorer homepage](screenshots/home.png)
+
 ## Overview
 
 This project contains a lightweight single-page travel guide featuring destination cards, editor's picks, weather widget support, and local storage persistence for enquiry and packing state.
